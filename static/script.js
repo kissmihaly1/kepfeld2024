@@ -1,7 +1,7 @@
 async function uploadVideo() {
     const videoInput = document.getElementById("videoInput");
     if (videoInput.files.length === 0) {
-        alert("Please select a video file first");
+        alert("Please select a video file first.");
         return;
     }
 
@@ -15,15 +15,16 @@ async function uploadVideo() {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to upload video");
+            throw new Error("Failed to upload and process video");
         }
 
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
+        const data = await response.json();
+        const videoUrl = data.video_url;
 
         const processedVideo = document.getElementById("processedVideo");
-        processedVideo.src = url;
+        processedVideo.src = videoUrl;
         processedVideo.style.display = "block";
+        processedVideo.play();
     } catch (error) {
         console.error("Error:", error);
         alert("Error processing video");

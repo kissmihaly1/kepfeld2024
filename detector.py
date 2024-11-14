@@ -4,7 +4,6 @@ from collections import defaultdict
 from ultralytics import YOLO
 from datetime import datetime
 
-
 class VehicleDetectionTracker:
 
     def __init__(self, model_path="yolov8n.pt"):
