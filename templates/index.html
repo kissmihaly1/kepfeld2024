@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
+    <script src="../static/script.js" defer></script>
 </head>
 <body>
+    <h1>Upload a video</h1>
+    <input type="file" id="videoInput" accept="video/*">
+    <button onclick="uploadVideo()">Upload</button>
 
+    <h2>Processed video</h2>
+    <video id="processedVideo" controls style="display: none;"></video>
 </body>
 </html>

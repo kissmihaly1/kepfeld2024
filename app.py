@@ -1,35 +1,30 @@
-from flask import Flask, request
+from flask import Flask, request, send_file, render_template
 from flask_cors import CORS
-
+import tempfile
+import os
 app = Flask(__name__)
 CORS(app)
 
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return render_template('index.html')
+
+@app.route("/process-video", methods=["POST"])
+def process_video():
+    video_file = request.files.get("video")
+    if not video_file:
+        return "No video uploaded", 400
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_video:
+        video_path = temp_video.name
+        video_file.save(video_path)
 
 
-@app.route('/upload', methods=["POST"])
-def upload_media():
-    """
-    Vár egy Arraybuffer api request-et, majd létrehoz számára egy fájlt
-    a következő elérési útvonalon: media-file.mp4
-    :return: Szöveg arról, hogy sikerült a fájlfeltöltés
-    """
-    media_file = open("media-file.mp4", "wb")
-    media_file.write(request.data)
-    media_file.close()
-
-    # Feltöltésre került az mp4 fájl, és az el van tárolva a következő helyen: media-file.mp4
-    # TODO: Hívd meg ezen videóra a YOLO algoritmust, és hozz létre egy media-file-result.mp4 videót az eredménynek (amennyiben lehetséges)
-    return "Finished"
+    # itt meghivni a yolo-t
+    return send_file(video_path, mimetype="video/mp4", as_attachment=True)
 
 
-@app.route('/fetch', methods=["GET"])
-def fetch_media():
-    # TODO: A yolo algoritmus eredményét olvasd be (ami feltehetően egy mp4) videó és küld vissza azt a frontend-nek.
-    return "Finished"
 
 
 if __name__ == '__main__':
