@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video</title>
     <script src="../static/script.js" defer></script>
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
     <h1>Upload</h1>
-    <input type="file" id="videoInput" accept="video/*">
-    <button onclick="uploadVideo()">Upload</button>
+
+      <form id="videoUploadForm">
+        <input type="file" id="videoFile" name="videoFile" accept="video/mp4" /> 
+        <button type="button" onclick="uploadVideo()">Upload</button> 
+      </form>
 
     <h2>Processed Video</h2>
-    <video id="processedVideo" controls style="display: none; width: 100%; max-width: 600px;">
+    <video id="processedVideo" controls>
         Your browser does not support the video tag
     </video>
+    <div id="number">
+      <p>Number of cars:</p>
+      <span id="numberOfCars"></span>
+    </div>
 </body>
 </html>

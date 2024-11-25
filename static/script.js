@@ -1,32 +1,46 @@
-async function uploadVideo() {
-    const videoInput = document.getElementById("videoInput");
+function uploadVideo() {
+    const videoInput = document.getElementById('videoFile');
+    const formData = new FormData();
+
+    // Ellenőrizd, hogy van-e fájl kiválasztva
     if (videoInput.files.length === 0) {
-        alert("Please select a video file first.");
+        alert("Please select a video file!");
         return;
     }
 
-    const formData = new FormData();
-    formData.append("video", videoInput.files[0]);
+    // Add hozzá a kiválasztott fájlt a formData-hoz
+    formData.append('video', videoInput.files[0]);
 
-    try {
-        const response = await fetch("/process-video", {
-            method: "POST",
-            body: formData,
+    // AJAX kérés küldése Fetch API-val
+    fetch('/process-video', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        const data = response.json();
+
+        data.then(result => {
+            const videoUrl = result.video_url;
+            const videoHtmlElement = document.getElementById('processedVideo');
+            videoHtmlElement.style.display = 'block';
+            videoHtmlElement.src = videoUrl;
+            const number = result.number;
+            
+            if(number) {
+                const numberDivElement = document.getElementById('number');
+                const numberSpanElement = document.getElementById('numberOfCars');
+
+                numberDivElement.style.display = "block";
+                numberSpanElement.textContent = number;
+            }
         });
-
-        if (!response.ok) {
-            throw new Error("Failed to upload and process video");
-        }
-
-        const data = await response.json();
-        const videoUrl = data.video_url;
-
-        const processedVideo = document.getElementById("processedVideo");
-        processedVideo.src = videoUrl;
-        processedVideo.style.display = "block";
-        processedVideo.play();
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Error processing video");
-    }
+    }) 
+    .then(data => {
+        console.log('Success');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while uploading.');
+    });
 }
+

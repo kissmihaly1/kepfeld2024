@@ -4,8 +4,10 @@ import cv2
 import tempfile
 from datetime import datetime
 from detector import VehicleDetectionTracker
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 tracker = VehicleDetectionTracker()
 
 os.makedirs("static/videos", exist_ok=True)
@@ -17,6 +19,7 @@ def hello_world():
 @app.route("/process-video", methods=["POST"])
 def process_video():
     video_file = request.files.get("video")
+    
     if not video_file:
         return "No video uploaded", 400
 
@@ -26,18 +29,17 @@ def process_video():
 
     output_filename = f"processed_{datetime.now().strftime('%Y%m%d_%H%M%S')}.mp4"
     output_path = os.path.join("static/videos", output_filename)
+    number_of_vehicles_detected = process_video_file(video_path, output_path)
 
-    if process_video_file(video_path, output_path):
-
-        video_url = f"/videos/{output_filename}?t={int(datetime.now().timestamp())}"
-        return jsonify({"video_url": video_url})
+    if number_of_vehicles_detected:
+        video_url = f"/videos/{output_filename}"
+        return jsonify({"video_url": video_url, "number": tracker.car_count})
     else:
         return "Error processing video", 500
 
-@app.route('/videos/<filename>')
+@app.route('/videos/<filename>', methods=['GET'])
 def serve_video(filename):
-
-    return send_from_directory('static/videos', filename, mimetype="video/mp4")
+    return send_from_directory('static/videos', filename, mimetype="video/mp4;codecs=vp9")
 
 def process_video_file(input_path, output_path):
     cap = cv2.VideoCapture(input_path)
@@ -50,7 +52,7 @@ def process_video_file(input_path, output_path):
     frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)) or 1280
     frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)) or 720
 
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    fourcc = cv2.VideoWriter_fourcc(*'X264')
     out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 
     frame_count = 0
