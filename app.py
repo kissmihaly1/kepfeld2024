@@ -43,6 +43,7 @@ def serve_video(filename):
 
 def process_video_file(input_path, output_path):
     cap = cv2.VideoCapture(input_path)
+    tracker.car_count = 0
 
     if not cap.isOpened():
         print("Error: Cannot open video file.")
