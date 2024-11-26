@@ -1,27 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video</title>
-    <script src="../static/script.js" defer></script>
-    <link rel="stylesheet" href="../static/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video</title>
+  <script src="../static/script.js" defer></script>
+  <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
-    <h1>Upload</h1>
-
-      <form id="videoUploadForm">
-        <input type="file" id="videoFile" name="videoFile" accept="video/mp4" /> 
-        <button type="button" onclick="uploadVideo()">Upload</button> 
-      </form>
-
-    <h2>Processed Video</h2>
-    <video id="processedVideo" controls>
-        Your browser does not support the video tag
-    </video>
-    <div id="number">
-      <p>Number of cars:</p>
-      <span id="numberOfCars"></span>
+  <div id="mainContainer" class="bg-container">
+    <div class="title-name">
+      <h1>
+        Counting cars on camera
+      </h1>
     </div>
+    <div class="drag-drop-video-holder">
+      <div class="drag-drop-component">
+        <form id="videoUploadForm">
+          <input
+            id="videoFile"
+            name="videoFile"
+            accept="video/mp4"
+            type="file"
+            class="input-component"
+            onchange="uploadVideo()"
+          />
+          <p class="text-center">
+            Drag a video here to upload
+          </p>
+        </form>
+      </div>
+      <div class="videoDisplayer">
+        <div>
+          <h2>Processed Video</h2>
+          <video allow="autoplay" id="processedVideo" width="640" controls>
+            Your browser does not support the video tag
+          </video>
+          <div id="number">
+            <p>Number of cars:</p>
+            <span id="numberOfCars"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="progressSpinner" class="custom-scroll-spinner">
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <div style="color: black; font-weight: bold;">
+      Please wait until the video is processed...
+    </div>
+  </div>
 </body>
 </html>

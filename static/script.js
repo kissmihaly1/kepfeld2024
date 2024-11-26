@@ -1,4 +1,41 @@
-function uploadVideo() {
+const setProgressSpinnerElements = () => {
+    const progressSpinnerElement = document.getElementById('progressSpinner');
+    const mainContainerElement = document.getElementById('mainContainer');
+    if (progressSpinnerElement) {
+        // Jelenítsük meg a progress spinner-t
+        progressSpinnerElement.style.display = 'block';
+    }
+    if (mainContainerElement) {
+        // A háttér legyen blur, miközben az egérrel ne lehessen kattintani.
+        mainContainerElement.style.filter = "blur(3px)";
+        mainContainerElement.style.pointerEvents = "none";
+    }
+}
+
+const removeProgressSpinnerElements = () => {
+    const progressSpinnerElement = document.getElementById('progressSpinner');
+    const mainContainerElement = document.getElementById('mainContainer');
+    const videoDisplayerElement = document.getElementsByClassName('videoDisplayer');
+    const htmlElement = document.getElementsByTagName("html");
+
+    if (progressSpinnerElement) {
+        // Tüntessük el a progress spinner-t
+        progressSpinnerElement.style.display = 'none';
+    }
+    if (mainContainerElement) {
+        // A háttér kerüljön visszaállításra az eredeti állapotára.
+        mainContainerElement.style.filter = "";
+        mainContainerElement.style.pointerEvents = "";
+    }
+    if (videoDisplayerElement[0]) {
+        videoDisplayerElement[0].style.display = "block";
+    }
+    if (htmlElement[0]) {
+        htmlElement[0].style.height = "auto";
+    }
+}
+
+const uploadVideo = () => {
     const videoInput = document.getElementById('videoFile');
     const formData = new FormData();
 
@@ -10,6 +47,9 @@ function uploadVideo() {
 
     // Add hozzá a kiválasztott fájlt a formData-hoz
     formData.append('video', videoInput.files[0]);
+
+    // Jelenítsük meg a progress bar-t.
+    setProgressSpinnerElements();
 
     // AJAX kérés küldése Fetch API-val
     fetch('/process-video', {
@@ -33,14 +73,11 @@ function uploadVideo() {
                 numberDivElement.style.display = "block";
                 numberSpanElement.textContent = number;
             }
-        });
+        }).finally(() => removeProgressSpinnerElements());
     }) 
-    .then(data => {
-        console.log('Success');
-    })
     .catch(error => {
         console.error('Error:', error);
         alert('An error occurred while uploading.');
-    });
+    }).finally(() => removeProgressSpinnerElements());
 }
 

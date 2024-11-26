@@ -1,14 +1,16 @@
-html, body {
+html {
     height: 100%;
-    overflow: hidden;
+    background: linear-gradient(217deg, rgba(255,0,0,.7), rgba(255,0,0,0) 85%),
+    linear-gradient(127deg, rgba(0,255,0,.7), rgba(0,255,0,0) 85%),
+    linear-gradient(336deg, rgba(0,0,255,.7), rgba(0,0,255,0) 85%);
 }
 
 body {
-    background: linear-gradient(#4AD3DA, #277174);
     color: #fff;
     text-align: center;
     margin: 0;
     font-size: 1.2rem;
+    padding: 80px 0 80px 0;
 
     form {
 
@@ -44,3 +46,151 @@ body {
         font-size: 1.4rem;
     }
 }
+
+.input-component {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  width: 350px;
+  height: 350px;
+}
+
+.drag-drop-component {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 350px;
+  border: solid 1px black;
+  border-radius: 8px;
+}
+
+.drag-drop-component:hover {
+  background-color: rgba(0,0,0,0.035)
+}
+
+.drag-drop-video-holder {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-name {
+  display: flex;
+  justify-content: center;
+}
+
+.videoDisplayer {
+  display: none;
+}
+
+/* ===========================
+ * CSS of the progress spinner
+ * Reference link: https://loading.io/css/
+ * ===========================
+ */
+
+ .custom-scroll-spinner {
+    bottom: 50%;
+    left: 40%;
+    right: 40%;
+    position: absolute;
+    display: none;
+ }
+
+ .lds-roller,
+ .lds-roller div,
+ .lds-roller div:after {
+   box-sizing: border-box;
+ }
+ .lds-roller {
+   display: inline-block;
+   position: relative;
+   width: 80px;
+   height: 80px;
+ }
+ .lds-roller div {
+   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+   transform-origin: 40px 40px;
+ }
+ .lds-roller div:after {
+   content: " ";
+   display: block;
+   position: absolute;
+   width: 7.2px;
+   height: 7.2px;
+   border-radius: 50%;
+   background: currentColor;
+   margin: -3.6px 0 0 -3.6px;
+ }
+ .lds-roller div:nth-child(1) {
+   animation-delay: -0.036s;
+ }
+ .lds-roller div:nth-child(1):after {
+   top: 62.62742px;
+   left: 62.62742px;
+ }
+ .lds-roller div:nth-child(2) {
+   animation-delay: -0.072s;
+ }
+ .lds-roller div:nth-child(2):after {
+   top: 67.71281px;
+   left: 56px;
+ }
+ .lds-roller div:nth-child(3) {
+   animation-delay: -0.108s;
+ }
+ .lds-roller div:nth-child(3):after {
+   top: 70.90963px;
+   left: 48.28221px;
+ }
+ .lds-roller div:nth-child(4) {
+   animation-delay: -0.144s;
+ }
+ .lds-roller div:nth-child(4):after {
+   top: 72px;
+   left: 40px;
+ }
+ .lds-roller div:nth-child(5) {
+   animation-delay: -0.18s;
+ }
+ .lds-roller div:nth-child(5):after {
+   top: 70.90963px;
+   left: 31.71779px;
+ }
+ .lds-roller div:nth-child(6) {
+   animation-delay: -0.216s;
+ }
+ .lds-roller div:nth-child(6):after {
+   top: 67.71281px;
+   left: 24px;
+ }
+ .lds-roller div:nth-child(7) {
+   animation-delay: -0.252s;
+ }
+ .lds-roller div:nth-child(7):after {
+   top: 62.62742px;
+   left: 17.37258px;
+ }
+ .lds-roller div:nth-child(8) {
+   animation-delay: -0.288s;
+ }
+ .lds-roller div:nth-child(8):after {
+   top: 56px;
+   left: 12.28719px;
+ }
+ @keyframes lds-roller {
+   0% {
+     transform: rotate(0deg);
+   }
+   100% {
+     transform: rotate(360deg);
+   }
+ }
+  
