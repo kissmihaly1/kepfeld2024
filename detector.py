@@ -105,7 +105,6 @@ class VehicleDetectionTracker:
                         # ID és keret megjelenitese
                         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
-                        # TODO: ezt esetle paraméterezni?
                         cv2.putText(frame, f'ID: {track_id}', (x1, y1 - 10), self.font, 0.6, (0, 255, 0),
                                     2)
 
