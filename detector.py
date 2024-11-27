@@ -8,7 +8,17 @@ import numpy as np
 
 class VehicleDetectionTracker:
 
-    def __init__(self, model_path="yolov8n.pt", position_threshold=50, time_threshold=3, stationary_threshold=5):
+    def __init__(self,
+                 model_path="yolov8n.pt",
+                 position_threshold=50,
+                 time_threshold=3,
+                 stationary_threshold=5,
+                 font_scale=1.2,
+                 shadow_color=(0, 0, 0),
+                 thickness=3,
+                 text_color=(255, 255, 255),
+                 font=cv2.FONT_HERSHEY_SIMPLEX,
+                 position=(10, 30)):
         self.model = YOLO(model_path)  # modell betoltese
         self.track_history = defaultdict(list)  # autok utvonala
         self.detected_vehicles = set()  # mar eszlelt jarmuvek azonositoja
@@ -19,6 +29,12 @@ class VehicleDetectionTracker:
         self.position_threshold = position_threshold  # min. poz. valtoztatas (pixelben)
         self.time_threshold = time_threshold  # min. idoelteres uj eszleleshez (mp-ben)
         self.stationary_threshold = stationary_threshold  # min. ido, amig az auto allhat
+        self.font_scale = font_scale
+        self.shadow_color = shadow_color
+        self.thickness = thickness
+        self.text_color = text_color
+        self.font = font
+        self.position = position
 
     # kepkocka base64 formatumba kodolasa
     def _encode_image_base64(self, image):
@@ -27,15 +43,14 @@ class VehicleDetectionTracker:
         return image_base64
 
     # szoveg arnyekkal
-    def draw_text_with_shadow(self, image, text, position, font=cv2.FONT_HERSHEY_SIMPLEX,
-                              font_scale=1.2, text_color=(255, 255, 255), shadow_color=(0, 0, 0), thickness=3):
-        x, y = position
+    def draw_text_with_shadow(self, image, text):
+        x, y = self.position
 
         # arnyek
-        cv2.putText(image, text, (x + 2, y + 2), font, font_scale, shadow_color, thickness)
+        cv2.putText(image, text, (x + 2, y + 2), self.font, self.font_scale, self.shadow_color, self.thickness)
 
         # feher szoveg fole
-        cv2.putText(image, text, (x, y), font, font_scale, text_color, thickness)
+        cv2.putText(image, text, (x, y), self.font, self.font_scale, self.text_color, self.thickness)
 
     # 2 poz. tavolsaganak kiszam.
     def calculate_distance(self, pos1, pos2):
@@ -89,20 +104,17 @@ class VehicleDetectionTracker:
 
                         # ID és keret megjelenitese
                         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                        cv2.putText(frame, f'ID: {track_id}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+
+                        # TODO: ezt esetle paraméterezni?
+                        cv2.putText(frame, f'ID: {track_id}', (x1, y1 - 10), self.font, 0.6, (0, 255, 0),
+                                    2)
 
             response["number_of_vehicles_detected"] = len(self.detected_vehicles)
 
         # szamlalo megjel. arnyekkal
         self.draw_text_with_shadow(
             frame,
-            f'Total Vehicles Counted: {self.car_count}',
-            (10, 30),  # Pozíció
-            font=cv2.FONT_HERSHEY_SIMPLEX,
-            font_scale=1.2,
-            text_color=(255, 255, 255),  # Fehér szöveg
-            shadow_color=(0, 0, 0),  # Fekete árnyék
-            thickness=3
+            f'Total Vehicles Counted: {self.car_count}'
         )
 
         # kepkocka base64 formatumba kodolasa
