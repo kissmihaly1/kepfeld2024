@@ -15,9 +15,6 @@ const setProgressSpinnerElements = () => {
 const removeProgressSpinnerElements = () => {
     const progressSpinnerElement = document.getElementById('progressSpinner');
     const mainContainerElement = document.getElementById('mainContainer');
-    const videoDisplayerElement = document.getElementsByClassName('videoDisplayer');
-    const htmlElement = document.getElementsByTagName("html");
-
     if (progressSpinnerElement) {
         // Tüntessük el a progress spinner-t
         progressSpinnerElement.style.display = 'none';
@@ -27,11 +24,16 @@ const removeProgressSpinnerElements = () => {
         mainContainerElement.style.filter = "";
         mainContainerElement.style.pointerEvents = "";
     }
-    if (videoDisplayerElement[0]) {
-        videoDisplayerElement[0].style.display = "block";
-    }
+}
+
+const renderVideoDiv = () => {
+    const videoDisplayerElement = document.getElementsByClassName('videoDisplayer');
+    const htmlElement = document.getElementsByTagName("html");
     if (htmlElement[0]) {
         htmlElement[0].style.height = "auto";
+    }
+    if (videoDisplayerElement[0]) {
+        videoDisplayerElement[0].style.display = "block";
     }
 }
 
@@ -73,7 +75,10 @@ const uploadVideo = () => {
                 numberDivElement.style.display = "block";
                 numberSpanElement.textContent = number;
             }
-        }).finally(() => removeProgressSpinnerElements());
+        }).finally(() => {
+            removeProgressSpinnerElements();
+            renderVideoDiv();
+        });
     }) 
     .catch(error => {
         console.error('Error:', error);
