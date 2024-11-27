@@ -12,9 +12,11 @@ tracker = VehicleDetectionTracker()
 
 os.makedirs("static/videos", exist_ok=True)
 
+
 @app.route('/')
 def hello_world():
     return render_template('index.html')
+
 
 @app.route("/process-video", methods=["POST"])
 def process_video():
@@ -37,9 +39,11 @@ def process_video():
     else:
         return "Error processing video", 500
 
+
 @app.route('/videos/<filename>', methods=['GET'])
 def serve_video(filename):
     return send_from_directory('static/videos', filename, mimetype="video/mp4;codecs=vp9")
+
 
 def process_video_file(input_path, output_path):
     cap = cv2.VideoCapture(input_path)
@@ -76,6 +80,7 @@ def process_video_file(input_path, output_path):
 
     print(f"Processed video saved to {output_path} with {frame_count} frames.")
     return True
+
 
 if __name__ == '__main__':
     app.run(debug=True)

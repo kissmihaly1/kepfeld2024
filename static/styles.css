@@ -1,50 +1,47 @@
 html {
-    height: 100%;
-    background: linear-gradient(217deg, rgba(255,0,0,.7), rgba(255,0,0,0) 85%),
-    linear-gradient(127deg, rgba(0,255,0,.7), rgba(0,255,0,0) 85%),
-    linear-gradient(336deg, rgba(0,0,255,.7), rgba(0,0,255,0) 85%);
+  height: 100%;
+  background: linear-gradient(135deg, rgba(49, 49, 96, 0.85), rgba(255,0,0,0) 90%);
 }
 
 body {
-    color: #fff;
-    text-align: center;
-    margin: 0;
-    font-size: 1.2rem;
-    padding: 80px 0 80px 0;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  font-size: 1.2rem;
+  padding: 80px 0 80px 0;
 
-    form {
-
-        input {
-            font-size: 1rem;
-        }
-
-        button {
-            background-color: #9CCACC;
-            box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 1.2rem;
-            padding: 0.5rem;
-            cursor: pointer;
-    
-            &:hover {
-                filter: brightness(0.8);
-            }
-        }
+  form {
+    input {
+      font-size: 1rem;
     }
 
-    video {
-        display: none; 
-        width: 100%; 
-        max-width: 600px;
-        margin: 0 auto;
-    }
+    button {
+      background-color: #9CCACC;
+      box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      cursor: pointer;
 
-    #number {
-        display: none;
-        font-size: 1.4rem;
+      &:hover {
+        filter: brightness(0.8);
+      }
     }
+  }
+
+  video {
+    display: none; 
+    width: 100%; 
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  #number {
+    display: none;
+    font-size: 1.4rem;
+  }
 }
 
 .input-component {
@@ -95,6 +92,11 @@ body {
  * Reference link: https://loading.io/css/
  * ===========================
  */
+
+ .progress-spinner-text-holder {
+  color: black;
+  font-weight: bold;
+ }
 
  .custom-scroll-spinner {
     bottom: 50%;
