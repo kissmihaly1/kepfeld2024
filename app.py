@@ -57,7 +57,7 @@ def process_video_file(input_path, output_path):
     frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)) or 1280
     frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)) or 720
 
-    fourcc = cv2.VideoWriter_fourcc(*'X264')
+    fourcc = cv2.VideoWriter_fourcc(*'avc1')
     out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 
     frame_count = 0

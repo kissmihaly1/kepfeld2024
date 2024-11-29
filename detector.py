@@ -71,7 +71,7 @@ class VehicleDetectionTracker:
 
         # YOLO futtatasa kepkockan
         results = self.model.track(frame, persist=True, tracker="bytetrack.yaml", verbose=False)
-        if results and results[0] and results[0].boxes:
+        if results and results[0] and results[0].boxes and results[0].boxes.id is not None:
             boxes = results[0].boxes.xyxy.cpu()  # Bounding box lekerese YOLO-bol
             track_ids = results[0].boxes.id.int().cpu().tolist()  # egyedi ID
             classes = results[0].boxes.cls.int().cpu().tolist()  # osztaly ID
