@@ -1,6 +1,25 @@
 html {
   height: 100%;
-  background: linear-gradient(135deg, rgba(49, 49, 96, 0.85), rgba(255,0,0,0) 90%);
+  background: linear-gradient(135deg, rgba(49, 49, 96, 0.92), rgba(24, 24, 49, 0.65) 75%);
+}
+
+.centered-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.form-positioning {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+label {
+  width: 200px;
+  display: flex;
+  align-items: flex-start;
 }
 
 body {

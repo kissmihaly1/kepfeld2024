@@ -37,8 +37,40 @@ const renderVideoDiv = () => {
     }
 }
 
-const uploadVideo = () => {
+const handleSpeedThresholdChanges = () => {
+    const thresholdValue = document.getElementById('speed_threshold').value;
+    const thresholdLabel = document.getElementById('speed_threshold_label');
+    const labelText = `Speed threshold (${thresholdValue}):`;
+    thresholdLabel.textContent = labelText;
+}
+
+const handlePositionThresholdChanges = () => {
+    const thresholdValue = document.getElementById('position_threshold').value;
+    const thresholdLabel = document.getElementById('position_threshold_label');
+    const labelText = `Position threshold (${thresholdValue}):`;
+    thresholdLabel.textContent = labelText;
+}
+
+const handleTimeThresholdChanges = () => {
+    const thresholdValue = document.getElementById('time_threshold').value;
+    const thresholdLabel = document.getElementById('time_threshold_label');
+    const labelText = `Time threshold (${thresholdValue}):`;
+    thresholdLabel.textContent = labelText;
+}
+
+const handleStationaryThresholdChanges = () => {
+    const thresholdValue = document.getElementById('stationary_threshold').value;
+    const thresholdLabel = document.getElementById('stationary_threshold_label');
+    const labelText = `Stationary threshold (${thresholdValue}):`;
+    thresholdLabel.textContent = labelText;
+}
+
+const getFormData = () => {
     const videoInput = document.getElementById('videoFile');
+    const speedThresholdValue = document.getElementById('speed_threshold').value;
+    const positionThresholdValue = document.getElementById('position_threshold').value;
+    const timeThresholdValue = document.getElementById('time_threshold').value;
+    const stationaryThresholdValue = document.getElementById('stationary_threshold').value;
     const formData = new FormData();
 
     // Ellenőrizd, hogy van-e fájl kiválasztva
@@ -49,6 +81,18 @@ const uploadVideo = () => {
 
     // Add hozzá a kiválasztott fájlt a formData-hoz
     formData.append('video', videoInput.files[0]);
+    formData.append('speed_threshold', speedThresholdValue);
+    formData.append('position_threshold', positionThresholdValue);
+    formData.append('time_threshold', timeThresholdValue);
+    formData.append('stationary_threshold', stationaryThresholdValue);
+    return formData;
+}
+
+const uploadVideo = () => {
+    const formData = getFormData();
+    if (!formData) {
+        return;
+    }
 
     // Jelenítsük meg a progress bar-t.
     setProgressSpinnerElements();

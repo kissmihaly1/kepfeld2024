@@ -25,6 +25,12 @@ def process_video():
     if not video_file:
         return "No video uploaded", 400
 
+    # Change the params of the detector based on the request
+    tracker.speed_threshold = float(request.form.get('speed_threshold'))
+    tracker.position_threshold = int(request.form.get('position_threshold'))
+    tracker.time_threshold = int(request.form.get('time_threshold'))
+    tracker.stationary_threshold = int(request.form.get('stationary_threshold'))
+
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_video:
         video_path = temp_video.name
         video_file.save(video_path)

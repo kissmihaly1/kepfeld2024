@@ -14,32 +14,43 @@
         Counting cars on camera
       </h1>
     </div>
-    <div class="drag-drop-video-holder">
-      <div class="drag-drop-component">
-        <form id="videoUploadForm">
-          <input
-            id="videoFile"
-            name="videoFile"
-            accept="video/mp4"
-            type="file"
-            class="input-component"
-            onchange="uploadVideo()"
-          />
-          <p class="text-center">
-            Drag a video here to upload
-          </p>
-        </form>
+    <div class="centered-form">
+      <div class="drag-drop-video-holder">
+        <div class="drag-drop-component">
+          <form id="videoUploadForm">
+            <input id="videoFile" name="videoFile" accept="video/mp4" type="file" class="input-component" onchange="uploadVideo()"/>
+            <p class="text-center">Drag a video here to upload</p>
+          </form>
+        </div>
       </div>
-      <div class="videoDisplayer">
-        <div>
-          <h2>Processed Video</h2>
-          <video allow="autoplay" id="processedVideo" width="640" controls>
-            Your browser does not support the video tag
-          </video>
-          <div id="number">
-            <p>Number of cars:</p>
-            <span id="numberOfCars"></span>
-          </div>
+      <div class="form-positioning">
+        <div class="centered-form">
+          <label for="speed_threshold" id="speed_threshold_label">Speed threshold (2):</label>
+          <input style="width: 200px;" type="range" step="0.1" min="1" max="5" value="2" id="speed_threshold" onmousemove="handleSpeedThresholdChanges()">
+        </div>
+        <div class="centered-form">
+          <label for="position_threshold" id="position_threshold_label">Position threshold (50):</label>
+          <input style="width: 200px;" type="range" step="1" min="10" max="100" value="50" id="position_threshold" onmousemove="handlePositionThresholdChanges()">
+        </div>
+        <div class="centered-form">
+          <label  for="time_threshold" id="time_threshold_label">Time threshold (10):</label>
+          <input style="width: 200px;" type="range" step="1" min="5" max="50" value="10" id="time_threshold" onmousemove="handleTimeThresholdChanges()">
+        </div>
+        <div class="centered-form">
+          <label for="stationary_threshold" id="stationary_threshold_label">Stationary threshold (10):</label>
+          <input style="width: 200px;" type="range" step="1" min="5" max="50" value="10" id="stationary_threshold" onmousemove="handleStationaryThresholdChanges()">
+        </div>
+      </div>
+    </div>
+    <div class="videoDisplayer">
+      <div>
+        <h2>Processed Video</h2>
+        <video allow="autoplay" id="processedVideo" width="640" controls>
+          Your browser does not support the video tag
+        </video>
+        <div id="number">
+          <p>Number of cars:</p>
+          <span id="numberOfCars"></span>
         </div>
       </div>
     </div>
